@@ -1,23 +1,22 @@
 import { useState, useEffect, useRef } from "react";
 
-const GEMINI = (key) => `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${key}`;
 
 async function callGemini(prompt, systemPrompt = "", history = [], maxTokens = 2000) {
   const key = import.meta.env.VITE_GEMINI_API_KEY;
-  const messages = history.length > 0
-    ? history.map(m => ({ role: m.role === "assistant" ? "model" : "user", parts: [{ text: m.content }] }))
-    : [{ role: "user", parts: [{ text: prompt }] }];
-  if (history.length === 0 || history[history.length - 1].role !== "user") {
-    // already set above
+  const messages = [];
+  if (systemPrompt) messages.push({ role: "system", content: systemPrompt });
+  if (history.length > 0) {
+    history.forEach(m => messages.push({ role: m.role === "assistant" ? "assistant" : "user", content: m.content }));
+  } else {
+    messages.push({ role: "user", content: prompt });
   }
-  const body = {
-    contents: history.length > 0 ? messages : [{ role: "user", parts: [{ text: prompt }] }],
-    generationConfig: { maxOutputTokens: maxTokens, temperature: 0.8 },
-  };
-  if (systemPrompt) body.system_instruction = { parts: [{ text: systemPrompt }] };
-  const res = await fetch(GEMINI(key), { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+  const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "Authorization": `Bearer ${key}` },
+    body: JSON.stringify({ model: "llama-3.3-70b-versatile", messages, max_tokens: maxTokens, temperature: 0.8 })
+  });
   const data = await res.json();
-  return data.candidates?.[0]?.content?.parts?.[0]?.text || "";
+  return data.choices?.[0]?.message?.content || "";
 }
 
 // ─── TRANSLATIONS ────────────────────────────────────────────────────────────
