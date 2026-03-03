@@ -143,7 +143,7 @@ Be their strategic advisor. Analyze their questions through the lens of their sp
       { id: "videos", label: "Film & Edit", icon: "🎬", color: "#FF8C00" },
       { id: "networking", label: "Outreach", icon: "🤝", color: "#FFD700" },
       { id: "exercise", label: "Exercise", icon: "💪", color: "#00FF88" },
-      { id: "learning", label: "Study & Research", icon: "📚", color: "#00E5FF" },
+      { id: "learning", label: "Study & Research", icon: "📚", color: "#FF9500" },
       { id: "business", label: "Business", icon: "💼", color: "#AA44FF" },
       { id: "running", label: "Running", icon: "🏃", color: "#FF44AA" },
     ],
@@ -279,7 +279,7 @@ Sé su asesor estratégico. Analiza sus preguntas a través de sus metas especí
       { id: "videos", label: "Filmar y Editar", icon: "🎬", color: "#FF8C00" },
       { id: "networking", label: "Outreach", icon: "🤝", color: "#FFD700" },
       { id: "exercise", label: "Ejercicio", icon: "💪", color: "#00FF88" },
-      { id: "learning", label: "Estudio e Investigación", icon: "📚", color: "#00E5FF" },
+      { id: "learning", label: "Estudio e Investigación", icon: "📚", color: "#FF9500" },
       { id: "business", label: "Negocios", icon: "💼", color: "#AA44FF" },
       { id: "running", label: "Running", icon: "🏃", color: "#FF44AA" },
     ],
@@ -541,7 +541,7 @@ export default function MissionControl() {
   function renderStrategy(text) {
     if (!text) return null;
     return text.split('\n').map((line, i) => {
-      if (line.startsWith('## ')) return <div key={i} style={{ fontSize: 11, letterSpacing: 2, color: "#00E5FF", marginTop: 18, marginBottom: 8, fontWeight: "bold" }}>{line.replace('## ', '▶ ')}</div>;
+      if (line.startsWith('## ')) return <div key={i} style={{ fontSize: 11, letterSpacing: 2, color: "#FF9500", marginTop: 18, marginBottom: 8, fontWeight: "bold" }}>{line.replace('## ', '▶ ')}</div>;
       if (line.startsWith('# ')) return <div key={i} style={{ fontSize: 13, letterSpacing: 2, color: "#FFD700", marginBottom: 8, fontWeight: "bold" }}>{line.replace('# ', '')}</div>;
       if (line.trim() === '') return <div key={i} style={{ height: 6 }} />;
       return <div key={i} style={{ fontSize: 12, color: "#B0C0D8", lineHeight: 1.7, marginBottom: 2 }}>{line}</div>;
@@ -549,12 +549,12 @@ export default function MissionControl() {
   }
 
   return (
-    <div style={{ minHeight: "100vh", background: "#060A12", color: "#E8F0FF", fontFamily: "'Space Grotesk', sans-serif" }}>
+    <div style={{ minHeight: "100vh", background: "linear-gradient(160deg, #0C0907 0%, #080806 50%, #0A0906 100%)", color: "#E8F0FF", fontFamily: "'Space Grotesk', sans-serif" }}>
       <div style={{ position: "fixed", inset: 0, pointerEvents: "none", zIndex: 9999, background: "repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px)" }} />
-      <div style={{ position: "fixed", inset: 0, pointerEvents: "none", backgroundImage: "radial-gradient(ellipse at 20% 50%, rgba(0,229,255,0.04) 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, rgba(100,0,255,0.04) 0%, transparent 60%)", backgroundAttachment: "fixed" }} />
+      <div style={{ position: "fixed", inset: 0, pointerEvents: "none", backgroundImage: "radial-gradient(ellipse at 20% 50%, rgba(255,149,0,0.04) 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, rgba(100,0,255,0.04) 0%, transparent 60%)", backgroundAttachment: "fixed" }} />
 
       {notification && (
-        <div style={{ position: "fixed", top: 24, right: 24, zIndex: 10000, background: notification.type === "boss" ? "linear-gradient(135deg,#FF4444,#CC0000)" : notification.type === "badge" ? "linear-gradient(135deg,#FFD700,#FFA500)" : "linear-gradient(135deg,#00FF88,#00CC66)", color: "#000", padding: "14px 22px", fontWeight: "700", fontSize: 13, fontFamily: "'Space Grotesk',sans-serif", boxShadow: "0 8px 32px rgba(0,0,0,0.4)", borderRadius: 10 }}>
+        <div style={{ position: "fixed", top: 16, right: 16, left: 16, zIndex: 10000, background: notification.type === "boss" ? "linear-gradient(135deg,#FF4444,#CC0000)" : notification.type === "badge" ? "linear-gradient(135deg,#FFD700,#FFA500)" : "linear-gradient(135deg,#00FF88,#00CC66)", color: "#000", padding: "14px 22px", fontWeight: "700", fontSize: 13, fontFamily: "'Space Grotesk',sans-serif", boxShadow: "0 8px 32px rgba(0,0,0,0.4)", borderRadius: 10 }}>
           {notification.msg}
         </div>
       )}
@@ -566,19 +566,19 @@ export default function MissionControl() {
         @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
         @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
         .tab-btn{background:transparent;border:1px solid rgba(255,255,255,0.07);color:#5a7090;padding:9px 13px;cursor:pointer;font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.5px;transition:all 0.2s ease;text-transform:uppercase;border-radius:6px}
-        .tab-btn:hover{border-color:rgba(0,229,255,0.3);color:#00E5FF;background:rgba(0,229,255,0.05)}
-        .tab-btn.active{border-color:#00E5FF;color:#00E5FF;background:rgba(0,229,255,0.08);box-shadow:0 0 12px rgba(0,229,255,0.15)}
+        .tab-btn:hover{border-color:rgba(255,149,0,0.3);color:#FF9500;background:rgba(255,149,0,0.05)}
+        .tab-btn.active{border-color:#FF9500;color:#FF9500;background:rgba(255,149,0,0.08);box-shadow:0 0 12px rgba(255,149,0,0.15)}
         .trow{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);padding:14px 16px;margin-bottom:8px;display:flex;align-items:center;gap:12px;transition:all 0.2s ease;cursor:pointer;animation:fadeUp 0.3s ease;border-radius:10px}
-        .trow:hover{border-color:rgba(0,229,255,0.2);background:rgba(0,229,255,0.03);transform:translateX(2px)}
+        .trow:hover{border-color:rgba(255,149,0,0.2);background:rgba(255,149,0,0.03);transform:translateX(2px)}
         .trow.done{opacity:0.35;border-color:rgba(0,255,136,0.15)}
         .chk{background:transparent;border:2px solid rgba(255,255,255,0.12);width:24px;height:24px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;transition:all 0.2s;flex-shrink:0;color:#00FF88;border-radius:6px}
         .chk:hover{border-color:#00FF88;background:rgba(0,255,136,0.08)}
         .chk.done{border-color:#00FF88;background:rgba(0,255,136,0.15)}
         input,select,textarea{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);color:#E8F0FF;padding:11px 15px;font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:400;width:100%;outline:none;resize:none;border-radius:8px;transition:all 0.2s;box-sizing:border-box}
-        input:focus,select:focus,textarea:focus{border-color:#00E5FF;background:rgba(0,229,255,0.04);box-shadow:0 0 0 3px rgba(0,229,255,0.08)}
+        input:focus,select:focus,textarea:focus{border-color:#FF9500;background:rgba(255,149,0,0.04);box-shadow:0 0 0 3px rgba(255,149,0,0.08)}
         select option{background:#0d1117;color:#E8F0FF}
-        .pbtn{background:linear-gradient(135deg,#00E5FF,#0099CC);color:#000;border:none;padding:11px 22px;font-family:'Space Grotesk',sans-serif;font-weight:700;cursor:pointer;letter-spacing:0.5px;font-size:12px;transition:all 0.2s ease;text-transform:uppercase;border-radius:8px}
-        .pbtn:hover{background:linear-gradient(135deg,#33EEFF,#00BBEE);box-shadow:0 4px 20px rgba(0,229,255,0.4);transform:translateY(-1px)}
+        .pbtn{background:linear-gradient(135deg,#FF9500,#0099CC);color:#000;border:none;padding:11px 22px;font-family:'Space Grotesk',sans-serif;font-weight:700;cursor:pointer;letter-spacing:0.5px;font-size:12px;transition:all 0.2s ease;text-transform:uppercase;border-radius:8px}
+        .pbtn:hover{background:linear-gradient(135deg,#FFB347,#FF8500);box-shadow:0 4px 20px rgba(255,149,0,0.4);transform:translateY(-1px)}
         .pbtn:disabled{background:rgba(255,255,255,0.06);color:#3a4a5a;cursor:not-allowed;box-shadow:none;transform:none}
         .gbtn{background:linear-gradient(135deg,#FFD700,#FFA500);color:#000;border:none;padding:11px 22px;font-family:'Space Grotesk',sans-serif;font-weight:700;cursor:pointer;letter-spacing:0.5px;font-size:12px;transition:all 0.2s ease;text-transform:uppercase;border-radius:8px}
         .gbtn:hover{background:linear-gradient(135deg,#FFE44D,#FFB733);box-shadow:0 4px 20px rgba(255,215,0,0.4);transform:translateY(-1px)}
@@ -590,72 +590,86 @@ export default function MissionControl() {
         .daybtn.active{border-color:#FFD700;color:#FFD700;background:rgba(255,215,0,0.08);box-shadow:0 0 10px rgba(255,215,0,0.12)}
         .lbrow{display:flex;align-items:center;gap:12px;padding:13px 16px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.02);margin-bottom:8px;border-radius:10px;transition:all 0.2s}
         .lbrow:hover{background:rgba(255,255,255,0.03)}
-        .lbrow.me{border-color:rgba(0,229,255,0.25);background:rgba(0,229,255,0.04)}
+        .lbrow.me{border-color:rgba(255,149,0,0.25);background:rgba(255,149,0,0.04)}
         .lbrow.first{border-color:rgba(255,215,0,0.25);background:rgba(255,215,0,0.04)}
         ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.08);border-radius:2px}
+
+        /* ── MOBILE RESPONSIVE ── */
+        @media(max-width:640px){
+          div[style*="repeat(4,1fr)"]{grid-template-columns:repeat(2,1fr)!important}
+          div[style*="repeat(2,1fr)"]{grid-template-columns:1fr!important}
+          h1{font-size:20px!important;letter-spacing:4px!important}
+          .tab-btn{padding:7px 9px;font-size:10px;letter-spacing:0}
+          .pbtn,.gbtn{padding:12px 18px;font-size:12px;width:100%}
+          .dbtn{padding:8px 14px;font-size:11px}
+          .trow{padding:12px 13px;gap:10px}
+          .lbrow{padding:11px 13px}
+          .daybtn{padding:7px 3px;font-size:9px}
+          input,select,textarea{font-size:16px}
+        }
       `}</style>
 
-      <div style={{ maxWidth: 880, margin: "0 auto", padding: "24px 18px" }}>
+      <div style={{ maxWidth: 880, margin: "0 auto", padding: "clamp(14px, 4vw, 24px)" }}>
 
         {/* Header */}
         <div style={{ textAlign: "center", marginBottom: 24, paddingBottom: 22, borderBottom: "1px solid rgba(255,255,255,0.06)", position: "relative" }}>
           <div style={{ position: "absolute", right: 0, top: 0, display: "flex", gap: 4 }}>
             {["es","en"].map(l => (
-              <button key={l} onClick={() => setLang(l)} style={{ background: lang === l ? "#00CFFF22" : "transparent", border: `1px solid ${lang === l ? "#00E5FF" : "rgba(255,255,255,0.07)"}`, color: lang === l ? "#00E5FF" : "#3a5570", padding: "5px 10px", cursor: "pointer", fontFamily: "monospace", fontSize: 10, letterSpacing: 1 }}>{l.toUpperCase()}</button>
+              <button key={l} onClick={() => setLang(l)} style={{ background: lang === l ? "#00CFFF22" : "transparent", border: `1px solid ${lang === l ? "#FF9500" : "rgba(255,255,255,0.07)"}`, color: lang === l ? "#FF9500" : "#3a5570", padding: "5px 10px", cursor: "pointer", fontFamily: "monospace", fontSize: 10, letterSpacing: 1 }}>{l.toUpperCase()}</button>
             ))}
           </div>
-          <div style={{ fontSize: 10, letterSpacing: 5, color: "#FF5566", marginBottom: 8, animation: "pulse 2s infinite", fontFamily: "'JetBrains Mono', monospace", fontWeight: 500 }}>{t.system_online}</div>
-          <h1 style={{ fontSize: 26, fontWeight: "900", letterSpacing: 6, margin: "0 0 6px", fontFamily: "'Orbitron', monospace", textShadow: "0 0 30px rgba(0,229,255,0.4), 0 0 60px rgba(0,229,255,0.1)" }}>{t.title}</h1>
+          <div style={{ fontSize: 10, letterSpacing: 5, color: "#FF4455", marginBottom: 8, animation: "pulse 2s infinite", fontFamily: "'JetBrains Mono', monospace", fontWeight: 500 }}>{t.system_online}</div>
+          <h1 style={{ fontSize: 28, fontWeight: "700", letterSpacing: 8, margin: "0 0 8px", fontFamily: "'Orbitron', sans-serif", background: "linear-gradient(135deg, #ffffff 0%, #FF9500 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>{t.title}</h1>
           <div style={{ fontSize: 11, letterSpacing: 4, color: "#3a5070", fontFamily: "'JetBrains Mono', monospace" }}>{t.subtitle}</div>
-          {state.playerName && <div style={{ fontSize: 10, color: "#00E5FF", marginTop: 6, letterSpacing: 2 }}>◈ {state.playerName} · {lang === "es" ? "PUNTOS" : "SCORE"}: {weekScore}</div>}
+          {state.playerName && <div style={{ fontSize: 11, color: "#FF9500", fontWeight: 500, marginTop: 6, letterSpacing: 2 }}>◈ {state.playerName} · {lang === "es" ? "PUNTOS" : "SCORE"}: {weekScore}</div>}
         </div>
 
         {/* Stats */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 8, marginBottom: 14 }}>
-          {[{ label: t.level, value: level, color: "#00E5FF" }, { label: t.total_xp, value: state.totalXP, color: "#FFD700" }, { label: t.streak, value: `${state.streak}d`, color: "#FF8C00" }, { label: t.done, value: state.totalCompleted, color: "#00FF88" }].map(s => (
-            <div key={s.label} style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)", padding: "14px 8px", textAlign: "center", borderRadius: 12, backdropFilter: "blur(10px)" }}>
-              <div style={{ fontSize: 22, fontWeight: "700", color: s.color, fontFamily: "'Orbitron', monospace" }}>{s.value}</div>
-              <div style={{ fontSize: 9, letterSpacing: 2, color: "#3a5070", marginTop: 5, fontWeight: 600 }}>{s.label}</div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 10, marginBottom: 16, gridAutoRows: "auto" }}>
+          {[{ label: t.level, value: level, color: "#FF9500" }, { label: t.total_xp, value: state.totalXP, color: "#FFD700" }, { label: t.streak, value: `${state.streak}d`, color: "#FF8C00" }, { label: t.done, value: state.totalCompleted, color: "#00FF88" }].map(s => (
+            <div key={s.label} style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", padding: "18px 8px", textAlign: "center", borderRadius: 14, transition: "all 0.2s" }}>
+              <div style={{ fontSize: 28, fontWeight: "700", color: s.color, fontFamily: "'Space Grotesk', sans-serif", letterSpacing: -1 }}>{s.value}</div>
+              <div style={{ fontSize: 10, letterSpacing: 2, color: "#4a6585", marginTop: 6, fontWeight: 500, fontFamily: "'Space Grotesk', sans-serif" }}>{s.label}</div>
             </div>
           ))}
         </div>
 
         {/* XP Bar */}
         <div style={{ marginBottom: 16, background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)", padding: "12px 16px", borderRadius: 10 }}>
-          <div style={{ display: "flex", justifyContent: "space-between", fontSize: 9, color: "#3a5570", marginBottom: 6 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11, color: "#4a6585", marginBottom: 8, fontWeight: 500 }}>
             <span>LVL {level}</span><span>{Math.round(state.totalXP % XP_PER_LEVEL)}/{XP_PER_LEVEL} {t.xp_to_next}</span>
           </div>
           <div style={{ height: 5, background: "rgba(255,255,255,0.05)", borderRadius: 3 }}>
-            <div style={{ height: "100%", width: `${levelProgress}%`, background: "linear-gradient(90deg,#00E5FF,#7B61FF)", transition: "width 0.6s ease", boxShadow: "0 0 10px rgba(0,229,255,0.5)", borderRadius: 3 }} />
+            <div style={{ height: "100%", width: `${levelProgress}%`, background: "linear-gradient(90deg,#FF9500,#FF6B00)", transition: "width 0.6s ease", boxShadow: "0 0 10px rgba(255,149,0,0.5)", borderRadius: 3 }} />
           </div>
         </div>
 
         {/* Tabs */}
-        <div style={{ display: "flex", gap: 3, marginBottom: 20, flexWrap: "wrap" }}>
+        <div style={{ display: "flex", gap: 5, marginBottom: 24, flexWrap: "wrap", overflowX: "auto", paddingBottom: 4 }}>
           {TABS.map(tab => <button key={tab.id} className={`tab-btn ${activeTab === tab.id ? "active" : ""}`} onClick={() => setActiveTab(tab.id)}>{tab.label}</button>)}
         </div>
 
         {/* ═══ DASHBOARD ═══ */}
         {activeTab === "dashboard" && (
           <div style={{ animation: "fadeUp 0.3s ease" }}>
-            <div style={{ background: "rgba(255,50,70,0.03)", border: "1px solid rgba(255,68,68,0.12)", padding: 18, marginBottom: 14, borderRadius: 12 }}>
-              <div style={{ fontSize: 10, letterSpacing: 3, color: "#FF5566", marginBottom: 10, fontWeight: 600, fontFamily: "'JetBrains Mono',monospace" }}>{t.daily_briefing}</div>
-              <div style={{ fontSize: 14, color: "#B0C0D8", lineHeight: 1.8, fontWeight: 400 }}>{coachMessage}</div>
+            <div style={{ background: "rgba(255,50,70,0.03)", border: "1px solid rgba(255,68,68,0.15)", padding: 20, marginBottom: 16, borderRadius: 14 }}>
+              <div style={{ fontSize: 11, letterSpacing: 3, color: "#FF4455", marginBottom: 12, fontWeight: 600, fontFamily: "'Space Grotesk', sans-serif", display: "flex", alignItems: "center", gap: 6 }}>{t.daily_briefing}</div>
+              <div style={{ fontSize: 15, color: "#C8D8F0", lineHeight: 1.8, fontWeight: 400 }}>{coachMessage}</div>
               <button onClick={() => setCoachMessage(t.strict_messages[Math.floor(Math.random() * t.strict_messages.length)])} style={{ marginTop: 9, background: "transparent", border: "1px solid #FF444466", color: "#FF4444", padding: "4px 12px", cursor: "pointer", fontFamily: "monospace", fontSize: 10, letterSpacing: 1 }}>{t.new_order}</button>
             </div>
 
             {!hasStrategy && (
-              <div style={{ background: "rgba(0,229,255,0.02)", border: "1px solid rgba(0,229,255,0.15)", padding: 22, marginBottom: 14, textAlign: "center" }}>
+              <div style={{ background: "rgba(255,149,0,0.02)", border: "1px solid rgba(255,149,0,0.12)", padding: 32, marginBottom: 16, borderRadius: 16, textAlign: "center", textAlign: "center" }}>
                 <div style={{ fontSize: 32, marginBottom: 10 }}>🧠</div>
-                <div style={{ fontSize: 13, color: "#00E5FF", letterSpacing: 2, marginBottom: 8 }}>{lang === "es" ? "SIN ESTRATEGIA AÚN" : "NO STRATEGY YET"}</div>
-                <div style={{ fontSize: 11, color: "#4a6a8a", marginBottom: 14, lineHeight: 1.7 }}>{t.strategy_subtitle}</div>
+                <div style={{ fontSize: 16, color: "#FF9500", letterSpacing: 3, marginBottom: 10, fontWeight: 700 }}>{lang === "es" ? "SIN ESTRATEGIA AÚN" : "NO STRATEGY YET"}</div>
+                <div style={{ fontSize: 13, color: "#5a7a9a", marginBottom: 20, lineHeight: 1.8, maxWidth: 500, margin: "0 auto 20px" }}>{t.strategy_subtitle}</div>
                 <button className="pbtn" onClick={() => { setActiveTab("strategy"); setOnboardingStep(1); }}>{t.start_analysis}</button>
               </div>
             )}
 
             {hasStrategy && state.userProfile && (
-              <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(0,229,255,0.1)", padding: 14, marginBottom: 14 }}>
-                <div style={{ fontSize: 9, letterSpacing: 2, color: "#00E5FF", marginBottom: 10 }}>▶ {lang === "es" ? "PERFIL ESTRATÉGICO" : "STRATEGIC PROFILE"}</div>
+              <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,149,0,0.1)", padding: 14, marginBottom: 14 }}>
+                <div style={{ fontSize: 9, letterSpacing: 2, color: "#FF9500", marginBottom: 10 }}>▶ {lang === "es" ? "PERFIL ESTRATÉGICO" : "STRATEGIC PROFILE"}</div>
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
                   {[
                     { label: lang === "es" ? "NICHO" : "NICHE", value: state.userProfile.niche },
@@ -723,7 +737,7 @@ export default function MissionControl() {
             {onboardingStep === 0 && !hasStrategy && (
               <div style={{ textAlign: "center", padding: "36px 20px" }}>
                 <div style={{ fontSize: 52, marginBottom: 14 }}>🧠</div>
-                <div style={{ fontSize: 14, letterSpacing: 3, color: "#00E5FF", marginBottom: 10 }}>{t.strategy_title}</div>
+                <div style={{ fontSize: 14, letterSpacing: 3, color: "#FF9500", marginBottom: 10 }}>{t.strategy_title}</div>
                 <div style={{ fontSize: 12, color: "#4a6a8a", lineHeight: 1.8, maxWidth: 480, margin: "0 auto 24px" }}>{t.strategy_subtitle}</div>
                 <button className="pbtn" onClick={() => setOnboardingStep(1)}>{t.start_analysis}</button>
               </div>
@@ -734,7 +748,7 @@ export default function MissionControl() {
               <div style={{ animation: "fadeUp 0.3s ease" }}>
                 <div style={{ display: "flex", gap: 4, marginBottom: 20 }}>
                   {t.onboarding.map((_, i) => (
-                    <div key={i} style={{ flex: 1, height: 3, background: i < onboardingStep ? "#00E5FF" : "rgba(255,255,255,0.07)", transition: "background 0.3s", borderRadius: 2 }} />
+                    <div key={i} style={{ flex: 1, height: 3, background: i < onboardingStep ? "#FF9500" : "rgba(255,255,255,0.07)", transition: "background 0.3s", borderRadius: 2 }} />
                   ))}
                 </div>
                 <div style={{ fontSize: 9, letterSpacing: 2, color: "#3a5570", marginBottom: 7 }}>
@@ -756,7 +770,7 @@ export default function MissionControl() {
             {onboardingStep === 8 && (
               <div style={{ textAlign: "center", padding: "56px 20px" }}>
                 <div style={{ fontSize: 44, marginBottom: 16, display: "inline-block", animation: "spin 2s linear infinite" }}>🧠</div>
-                <div style={{ fontSize: 12, letterSpacing: 3, color: "#00E5FF", marginBottom: 8 }}>{t.analyzing}</div>
+                <div style={{ fontSize: 12, letterSpacing: 3, color: "#FF9500", marginBottom: 8 }}>{t.analyzing}</div>
                 <div style={{ fontSize: 10, color: "#3a5570", animation: "pulse 1.5s infinite" }}>{t.analyzing_sub}</div>
               </div>
             )}
@@ -769,7 +783,7 @@ export default function MissionControl() {
                   <button className="dbtn" onClick={() => { setState(prev => ({ ...prev, strategy: null, userProfile: null, weeklySchedule: null })); setOnboardingStep(1); setOnboardingAnswers({}); }}>{t.regenerate_strategy}</button>
                 </div>
 
-                <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(0,229,255,0.1)", padding: 20, marginBottom: 16, maxHeight: 500, overflowY: "auto" }}>
+                <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,149,0,0.1)", padding: 20, marginBottom: 16, maxHeight: 500, overflowY: "auto" }}>
                   {renderStrategy(state.strategy)}
                 </div>
 
@@ -975,7 +989,7 @@ export default function MissionControl() {
                     <div style={{ fontSize: 26, marginBottom: 7, filter: unlocked ? "none" : "grayscale(100%)" }}>{badge.icon}</div>
                     <div style={{ fontSize: 11, fontWeight: "bold", color: unlocked ? "#FFD700" : "#3a5570", letterSpacing: 1 }}>{badge.label}</div>
                     <div style={{ fontSize: 10, color: "#3a5570", marginTop: 3 }}>{badge.desc}</div>
-                    <div style={{ fontSize: 10, color: "#FFD700", marginTop: 7 }}>+{badge.xp} XP</div>
+                    <div style={{ fontSize: 11, color: "#FFD700", fontWeight: 500, marginTop: 7 }}>+{badge.xp} XP</div>
                     {unlocked && <div style={{ fontSize: 9, color: "#00FF88", marginTop: 5, letterSpacing: 2 }}>{t.earned}</div>}
                   </div>
                 );
@@ -989,11 +1003,11 @@ export default function MissionControl() {
           <div style={{ animation: "fadeUp 0.3s ease" }}>
             <div style={{ fontSize: 9, letterSpacing: 2, color: "#3a5570", marginBottom: 12 }}>{t.drill_title}</div>
             {hasStrategy && state.userProfile && (
-              <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(0,229,255,0.1)", padding: "8px 12px", marginBottom: 12, fontSize: 10, color: "#3a5570" }}>
-                🧠 {lang === "es" ? "Coach personalizado para:" : "Personalized coach for:"} <span style={{ color: "#00E5FF" }}>{state.userProfile.niche}</span> · {lang === "es" ? "Meta:" : "Goal:"} <span style={{ color: "#FFD700" }}>{state.userProfile.goal_90}</span>
+              <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,149,0,0.1)", padding: "8px 12px", marginBottom: 12, fontSize: 10, color: "#3a5570" }}>
+                🧠 {lang === "es" ? "Coach personalizado para:" : "Personalized coach for:"} <span style={{ color: "#FF9500" }}>{state.userProfile.niche}</span> · {lang === "es" ? "Meta:" : "Goal:"} <span style={{ color: "#FFD700" }}>{state.userProfile.goal_90}</span>
               </div>
             )}
-            <div ref={chatRef} style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(0,229,255,0.1)", padding: 14, minHeight: 240, maxHeight: 340, overflowY: "auto", marginBottom: 12 }}>
+            <div ref={chatRef} style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,149,0,0.1)", padding: 14, minHeight: 240, maxHeight: 340, overflowY: "auto", marginBottom: 12 }}>
               {chatHistory.length === 0 && (
                 <div style={{ color: "#3a5570", fontSize: 12, textAlign: "center", padding: 36 }}>
                   <div style={{ fontSize: 26, marginBottom: 9 }}>🧠</div>
@@ -1010,7 +1024,7 @@ export default function MissionControl() {
               {aiLoading && (
                 <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
                   <div style={{ fontSize: 15 }}>🧠</div>
-                  <div style={{ color: "#00E5FF", fontSize: 10, animation: "pulse 1s infinite" }}>{t.incoming}</div>
+                  <div style={{ color: "#FF9500", fontSize: 10, animation: "pulse 1s infinite" }}>{t.incoming}</div>
                 </div>
               )}
             </div>
@@ -1030,7 +1044,7 @@ export default function MissionControl() {
         {activeTab === "leaderboard" && (
           <div style={{ animation: "fadeUp 0.3s ease" }}>
             {!state.playerName && (
-              <div style={{ background: "rgba(0,229,255,0.03)", border: "1px solid rgba(0,229,255,0.15)", padding: 20, marginBottom: 20, textAlign: "center" }}>
+              <div style={{ background: "rgba(255,149,0,0.03)", border: "1px solid rgba(255,149,0,0.15)", padding: 20, marginBottom: 20, textAlign: "center" }}>
                 <div style={{ fontSize: 28, marginBottom: 10 }}>⚔️</div>
                 <div style={{ fontSize: 11, color: "#4a6a8a", marginBottom: 16, lineHeight: 1.7 }}>
                   {lang === "es" ? "Para aparecer en el ranking, elige tu nombre de batalla." : "To appear on the leaderboard, choose your battle name."}
@@ -1043,8 +1057,8 @@ export default function MissionControl() {
             )}
 
             {state.playerName && (
-              <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(0,229,255,0.1)", padding: "10px 14px", marginBottom: 14, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <div style={{ fontSize: 11, color: "#00E5FF" }}>◈ {state.playerName}</div>
+              <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,149,0,0.1)", padding: "10px 14px", marginBottom: 14, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <div style={{ fontSize: 11, color: "#FF9500" }}>◈ {state.playerName}</div>
                 <div style={{ fontSize: 11, color: "#FFD700" }}>{lang === "es" ? "Puntos" : "Score"}: <strong>{weekScore}</strong></div>
               </div>
             )}
@@ -1067,7 +1081,7 @@ export default function MissionControl() {
                 <div style={{ background: "rgba(255,215,0,0.04)", border: "1px solid rgba(255,215,0,0.2)", padding: "10px 16px", marginBottom: 14, display: "flex", alignItems: "center", gap: 12 }}>
                   <div style={{ fontSize: 22 }}>🏆</div>
                   <div>
-                    <div style={{ fontSize: 10, color: "#FFD700", letterSpacing: 2 }}>{t.week_winner}</div>
+                    <div style={{ fontSize: 11, color: "#FFD700", fontWeight: 500, letterSpacing: 2 }}>{t.week_winner}</div>
                     <div style={{ fontSize: 14, fontWeight: "bold", color: "#FFE44D" }}>{leaderboard[0].name}</div>
                   </div>
                   <div style={{ marginLeft: "auto", textAlign: "right" }}>
@@ -1081,8 +1095,8 @@ export default function MissionControl() {
                       {i === 0 ? "🥇" : i === 1 ? "🥈" : i === 2 ? "🥉" : `#${i+1}`}
                     </div>
                     <div style={{ flex: 1 }}>
-                      <div style={{ fontSize: 13, color: player.name === state.playerName ? "#00E5FF" : "#E0E8FF" }}>
-                        {player.name} {player.name === state.playerName && <span style={{ fontSize: 9, color: "#00E5FF" }}>{t.you_label}</span>}
+                      <div style={{ fontSize: 13, color: player.name === state.playerName ? "#FF9500" : "#E0E8FF" }}>
+                        {player.name} {player.name === state.playerName && <span style={{ fontSize: 9, color: "#FF9500" }}>{t.you_label}</span>}
                       </div>
                       <div style={{ fontSize: 10, color: "#3a5570", marginTop: 2 }}>{player.xp} XP · {player.tasks} {t.tasks_done}</div>
                     </div>
@@ -1110,8 +1124,8 @@ export default function MissionControl() {
                   <div key={player.name} className={`lbrow ${player.name === state.playerName ? "me" : ""}`}>
                     <div style={{ fontSize: 13, fontWeight: "bold", color: i === 0 ? "#AA44FF" : "#3a5570", minWidth: 24, textAlign: "center" }}>{i === 0 ? "👑" : `#${i+1}`}</div>
                     <div style={{ flex: 1 }}>
-                      <div style={{ fontSize: 13, color: player.name === state.playerName ? "#00E5FF" : "#E0E8FF" }}>
-                        {player.name} {player.name === state.playerName && <span style={{ fontSize: 9, color: "#00E5FF" }}>{t.you_label}</span>}
+                      <div style={{ fontSize: 13, color: player.name === state.playerName ? "#FF9500" : "#E0E8FF" }}>
+                        {player.name} {player.name === state.playerName && <span style={{ fontSize: 9, color: "#FF9500" }}>{t.you_label}</span>}
                       </div>
                       <div style={{ fontSize: 10, color: "#3a5570", marginTop: 2 }}>{player.xp} XP · {player.tasks} {t.tasks_done}</div>
                     </div>
@@ -1127,5 +1141,4 @@ export default function MissionControl() {
     </div>
   );
 }
-
 
