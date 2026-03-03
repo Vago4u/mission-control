@@ -1,4 +1,4 @@
-iimport { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const GEMINI = (key) => `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${key}`;
 
