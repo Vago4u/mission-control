@@ -337,17 +337,31 @@ const initialState = {
 };
 
 export default function MissionControl() {
-  const [lang, setLang] = useState("es");
+  // ── LOAD FROM LOCALSTORAGE ──
+  const loadSaved = () => {
+    try {
+      const saved = localStorage.getItem("mc_state");
+      return saved ? { ...initialState, ...JSON.parse(saved) } : initialState;
+    } catch { return initialState; }
+  };
+  const loadSavedLang = () => {
+    try { return localStorage.getItem("mc_lang") || "es"; } catch { return "es"; }
+  };
+
+  const [lang, setLangState] = useState(loadSavedLang);
+  const setLang = (l) => { setLangState(l); try { localStorage.setItem("mc_lang", l); } catch {} };
   const t = T[lang];
-  const [state, setState] = useState(initialState);
+  const [state, setStateRaw] = useState(loadSaved);
   const [activeTab, setActiveTab] = useState("dashboard");
-  const [coachMessage, setCoachMessage] = useState(() => T.es.strict_messages[0]);
+  const [coachMessage, setCoachMessage] = useState(() => T[loadSavedLang()].strict_messages[0]);
   const [newTask, setNewTask] = useState({ title: "", category: "content", xp: 50 });
   const [showAddTask, setShowAddTask] = useState(false);
   const [notification, setNotification] = useState(null);
   const [aiLoading, setAiLoading] = useState(false);
   const [userInput, setUserInput] = useState("");
-  const [chatHistory, setChatHistory] = useState([]);
+  const [chatHistory, setChatHistory] = useState(() => {
+    try { const s = localStorage.getItem("mc_chat"); return s ? JSON.parse(s) : []; } catch { return []; }
+  });
   const [selectedDay, setSelectedDay] = useState(0);
   const [nameInput, setNameInput] = useState("");
   const [leaderboard, setLeaderboard] = useState([]);
@@ -355,10 +369,24 @@ export default function MissionControl() {
   const [allTimeBoard, setAllTimeBoard] = useState([]);
 
   // Onboarding & Strategy state
-  const [onboardingStep, setOnboardingStep] = useState(0); // 0=intro, 1-7=questions, 8=generating, 9=done
+  const [onboardingStep, setOnboardingStep] = useState(0);
   const [onboardingAnswers, setOnboardingAnswers] = useState({});
   const [currentAnswer, setCurrentAnswer] = useState("");
   const [buildingSchedule, setBuildingSchedule] = useState(false);
+
+  // ── AUTO-SAVE STATE TO LOCALSTORAGE ──
+  const setState = (updater) => {
+    setStateRaw(prev => {
+      const next = typeof updater === "function" ? updater(prev) : updater;
+      try { localStorage.setItem("mc_state", JSON.stringify(next)); } catch {}
+      return next;
+    });
+  };
+
+  // ── SAVE CHAT HISTORY ──
+  useEffect(() => {
+    try { localStorage.setItem("mc_chat", JSON.stringify(chatHistory.slice(-50))); } catch {}
+  }, [chatHistory]);
 
   const chatRef = useRef(null);
   const currentBoss = BOSSES_DATA[state.currentBossIndex] || null;
@@ -366,6 +394,20 @@ export default function MissionControl() {
   useEffect(() => { if (chatRef.current) chatRef.current.scrollTop = chatRef.current.scrollHeight; }, [chatHistory]);
   useEffect(() => { if (activeTab === "leaderboard") loadLeaderboard(); }, [activeTab]);
   useEffect(() => { if (state.playerName && state.totalXP > 0) pushScore(); }, [state.totalXP, state.totalCompleted]);
+
+  // ── RESET PROGRESS ──
+  function resetProgress() {
+    if (!window.confirm(lang === "es" ? "¿Resetear todo el progreso? Esto no se puede deshacer." : "Reset all progress? This cannot be undone.")) return;
+    try {
+      localStorage.removeItem("mc_state");
+      localStorage.removeItem("mc_chat");
+    } catch {}
+    setStateRaw(initialState);
+    setChatHistory([]);
+    setOnboardingStep(0);
+    setOnboardingAnswers({});
+    showNotif(lang === "es" ? "🔄 Progreso reseteado" : "🔄 Progress reset", "success");
+  }
 
   function showNotif(msg, type = "success") {
     setNotification({ msg, type });
@@ -637,6 +679,12 @@ export default function MissionControl() {
           <h1 style={{ fontSize: 28, fontWeight: "700", letterSpacing: 8, margin: "0 0 8px", fontFamily: "'Orbitron', sans-serif", background: "linear-gradient(135deg, #ffffff 0%, #FF9500 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>{t.title}</h1>
           <div style={{ fontSize: 11, letterSpacing: 4, color: "#3a5070", fontFamily: "'JetBrains Mono', monospace" }}>{t.subtitle}</div>
           {state.playerName && <div style={{ fontSize: 11, color: "#FF9500", fontWeight: 500, marginTop: 6, letterSpacing: 2 }}>◈ {state.playerName} · {lang === "es" ? "PUNTOS" : "SCORE"}: {weekScore}</div>}
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12, marginTop: 8 }}>
+            <div style={{ fontSize: 10, color: "#3a5570", fontFamily: "'JetBrains Mono', monospace" }}>💾 {lang === "es" ? "Guardado automáticamente" : "Auto-saved"}</div>
+            {(state.totalXP > 0 || state.strategy) && (
+              <button onClick={resetProgress} style={{ background: "transparent", border: "1px solid rgba(255,68,68,0.25)", color: "#FF6B6B", padding: "3px 10px", cursor: "pointer", fontFamily: "'Space Grotesk', sans-serif", fontSize: 10, borderRadius: 5 }}>{lang === "es" ? "↺ Reset" : "↺ Reset"}</button>
+            )}
+          </div>
         </div>
 
         {/* Stats */}
