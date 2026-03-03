@@ -427,20 +427,8 @@ export default function MissionControl() {
     setChatHistory(hist);
     try {
       const systemPrompt = t.coach_system(state.userProfile, state.strategy, { level: getLevel(state.totalXP), xp: state.totalXP, streak: state.streak });
-      const geminiMessages = hist.map(m => ({ role: m.role === "assistant" ? "model" : "user", parts: [{ text: m.content }] }));
-      const key = import.meta.env.VITE_GEMINI_API_KEY;
-      const res = await fetch(GEMINI(key), {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          system_instruction: { parts: [{ text: systemPrompt }] },
-          contents: geminiMessages,
-          generationConfig: { maxOutputTokens: 1000, temperature: 0.8 },
-        }),
-      });
-      const data = await res.json();
-      const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || (lang === "es" ? "Vuelve al trabajo." : "Get back to work.");
-      setChatHistory([...hist, { role: "assistant", content: reply }]);
+      const reply = await callGemini(q, systemPrompt, hist, 1000);
+      setChatHistory([...hist, { role: "assistant", content: reply || (lang === "es" ? "Vuelve al trabajo." : "Get back to work.") }]);
     } catch {
       setChatHistory([...hist, { role: "assistant", content: lang === "es" ? "Error de conexión. Intenta de nuevo." : "Connection error. Try again." }]);
     }
@@ -465,17 +453,7 @@ export default function MissionControl() {
     setOnboardingStep(8);
     setAiLoading(true);
     try {
-      const key = import.meta.env.VITE_GEMINI_API_KEY;
-      const res = await fetch(GEMINI(key), {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          contents: [{ role: "user", parts: [{ text: t.strategy_prompt(answers) }] }],
-          generationConfig: { maxOutputTokens: 3000, temperature: 0.7 },
-        }),
-      });
-      const data = await res.json();
-      const strategy = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
+      const strategy = await callGemini(t.strategy_prompt(answers), "", [], 3000);
       setState(prev => {
         let ns = { ...prev, strategy, userProfile: answers, strategiesGenerated: (prev.strategiesGenerated || 0) + 1, playerName: answers.name || prev.playerName };
         return checkBadges(ns, prev);
@@ -493,17 +471,7 @@ export default function MissionControl() {
     setBuildingSchedule(true);
     setAiLoading(true);
     try {
-      const key = import.meta.env.VITE_GEMINI_API_KEY;
-      const res = await fetch(GEMINI(key), {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          contents: [{ role: "user", parts: [{ text: t.schedule_prompt(state.userProfile, state.strategy) }] }],
-          generationConfig: { maxOutputTokens: 4000, temperature: 0.7 },
-        }),
-      });
-      const data = await res.json();
-      const raw = data.candidates?.[0]?.content?.parts?.[0]?.text || "{}";
+      const raw = await callGemini(t.schedule_prompt(state.userProfile, state.strategy), "", [], 4000);
       const clean = raw.replace(/```json|```/g, "").trim();
       const schedule = JSON.parse(clean);
       setState(prev => ({ ...prev, weeklySchedule: schedule }));
