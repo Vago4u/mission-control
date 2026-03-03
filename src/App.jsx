@@ -330,7 +330,7 @@ export default function MissionControl() {
     setShowAddTask(false);
   }
 
-  async function askCoach() {
+ async function askCoach() {
     if (!userInput.trim() || aiLoading) return;
     const q = userInput.trim();
     setUserInput("");
@@ -338,18 +338,25 @@ export default function MissionControl() {
     const hist = [...chatHistory, { role: "user", content: q }];
     setChatHistory(hist);
     try {
-      const res = await fetch("https://api.anthropic.com/v1/messages", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          model: "claude-sonnet-4-20250514",
-          max_tokens: 1000,
-          system: t.coach_system(getLevel(state.totalXP), state.totalXP, state.streak),
-          messages: hist,
-        }),
-      });
+      const systemPrompt = t.coach_system(getLevel(state.totalXP), state.totalXP, state.streak);
+      const geminiMessages = hist.map(m => ({
+        role: m.role === "assistant" ? "model" : "user",
+        parts: [{ text: m.content }]
+      }));
+      const res = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${import.meta.env.VITE_GEMINI_API_KEY}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            system_instruction: { parts: [{ text: systemPrompt }] },
+            contents: geminiMessages,
+            generationConfig: { maxOutputTokens: 1000, temperature: 0.9 },
+          }),
+        }
+      );
       const data = await res.json();
-      const reply = data.content?.[0]?.text || (lang === "es" ? "Vuelve al trabajo." : "Get back to work.");
+      const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || (lang === "es" ? "Vuelve al trabajo." : "Get back to work.");
       setChatHistory([...hist, { role: "assistant", content: reply }]);
     } catch {
       setChatHistory([...hist, { role: "assistant", content: lang === "es" ? "Sin excusas. Trabaja." : "No excuses. Work." }]);
@@ -370,14 +377,19 @@ export default function MissionControl() {
     setScheduleStep(7);
     setAiLoading(true);
     try {
-      const res = await fetch("https://api.anthropic.com/v1/messages", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          model: "claude-sonnet-4-20250514",
-          max_tokens: 4000,
-          messages: [{ role: "user", content: t.schedule_prompt(answers) }],
-        }),
+      const res = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${import.meta.env.VITE_GEMINI_API_KEY}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            contents: [{ role: "user", parts: [{ text: t.schedule_prompt(answers) }] }],
+            generationConfig: { maxOutputTokens: 4000, temperature: 0.7 },
+          }),
+        }
+      );
+      const data = await res.json();
+      const raw = data.candidates?.[0]?.content?.parts?.[0]?.text || "{}";
       });
       const data = await res.json();
       const raw = data.content?.[0]?.text || "{}";
