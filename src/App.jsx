@@ -100,25 +100,32 @@ Structure your response EXACTLY like this (use these exact headers):
 [5 specific numbers they must track weekly]
 
 Be specific, actionable, and ruthless. No generic advice. Everything must be tailored to their exact situation.`,
-    schedule_prompt: (a, strategy) => `You are a precision military scheduler. Build this person's optimal week based on their strategy.
+    schedule_prompt: (a, strategy) => `You are a world-class content strategist and execution coach. Your job is to give ${a.name} a COMPLETE, READY-TO-EXECUTE weekly plan. No research needed. No vague tasks. You ARE the strategist — you tell them exactly what to create, say, and do.
 
-PERSON: ${a.name}
-NICHE: ${a.niche}
-GOAL: ${a.goal_90}
-HOURS/DAY: ${a.available_hours}
-STRATEGY SUMMARY: ${strategy ? strategy.substring(0, 500) : "grow audience and get clients"}
+PROFILE:
+- Name: ${a.name}
+- Niche: ${a.niche}
+- Goal: ${a.goal_90}
+- Available hours/day: ${a.available_hours}
+- Strategy: ${strategy ? strategy.substring(0, 600) : "grow audience and get clients"}
 
-Create a 7-day schedule optimized for maximum progress toward their goal. Every task must directly serve their strategy.
+CRITICAL RULES — EVERY SINGLE TASK MUST FOLLOW THESE OR IT IS WRONG:
+1. NEVER say "research trending content", "find inspiration", "browse social media", "look for ideas" — YOU provide the idea directly in the task.
+2. NEVER say "plan your content" — give the ACTUAL content plan with specific topics and hooks.
+3. NEVER say "engage with your audience" — say exactly WHO to engage with and WHAT to write.
+4. Content tasks must include the EXACT topic, angle, and hook. BAD: "Film a video about your niche." GOOD: "Film 60-sec Reel: '3 things I wish I knew before starting ${a.niche}' — Hook: Stop doing this if you want [result]. Show the mistake first, then the fix."
+5. Outreach tasks must say exactly WHO to DM and WHAT message to send. BAD: "Do outreach." GOOD: "DM 5 creators in ${a.niche} with 2k-15k followers. Message: Hey [name], your post on [topic] was fire. I make content about [your angle]. Would love to do a collab — open to it?"
+6. Learning tasks must name the SPECIFIC skill or technique. BAD: "Learn about marketing." GOOD: "Study short-form hook formulas: watch top 3 viral videos in your niche, write down the first 3 seconds of each, and copy the structure for your next post."
+7. Every task title is action-first and ultra-specific. It tells them exactly what the output is.
 
 Return ONLY valid JSON. No markdown. No explanation. Keys must be exactly: MON, TUE, WED, THU, FRI, SAT, SUN
 
-{"MON":[{"time":"7:00 AM","title":"specific task name","category":"content","duration":"45 min","xp":75,"why":"why this task matters strategically","completed":false}],"TUE":[...],"WED":[...],"THU":[...],"FRI":[...],"SAT":[...],"SUN":[...]}
+{"MON":[{"time":"7:00 AM","title":"ultra-specific task with exact details","category":"content","duration":"45 min","xp":75,"why":"exact reason this drives growth/revenue","completed":false}],"TUE":[...],"WED":[...],"THU":[...],"FRI":[...],"SAT":[...],"SUN":[...]}
 
 category must be one of: content, videos, networking, exercise, learning, business, running
 xp: 25=easy(15min), 50=medium(30min), 100=hard(60min), 150=epic(90min+)
-4-6 tasks per day. Include specific times. Tasks must be SPECIFIC to their niche, not generic.
-Each task needs a "why" field explaining its strategic purpose.
-Balance content creation, outreach, learning, and self-care.`,
+4-6 tasks per day with specific times. SUN can be lighter.
+The "why" must explain direct business/growth impact — not just restate the task.`,
     coach_system: (profile, strategy, stats) => `You are an elite strategic coach and market analyst. You have deep knowledge of growth psychology, content strategy, and conversion optimization.
 
 YOUR CLIENT:
@@ -237,24 +244,32 @@ Estructura tu respuesta EXACTAMENTE así (usa estos encabezados exactos):
 [5 números específicos que debe rastrear semanalmente]
 
 Sé específico, accionable y sin piedad. Sin consejos genéricos. Todo debe estar adaptado a su situación exacta. Responde en español.`,
-    schedule_prompt: (a, strategy) => `Eres un planificador militar de precisión. Construye la semana óptima de esta persona basada en su estrategia.
+    schedule_prompt: (a, strategy) => `Eres un estratega de contenido de clase mundial. Tu trabajo es darle a ${a.name} un plan semanal COMPLETO y LISTO PARA EJECUTAR. Sin investigación previa. Sin tareas vagas. TÚ eres el estratega — les dices exactamente qué crear, decir y hacer.
 
-PERSONA: ${a.name}
-NICHO: ${a.niche}
-META: ${a.goal_90}
-HORAS/DÍA: ${a.available_hours}
-RESUMEN DE ESTRATEGIA: ${strategy ? strategy.substring(0, 500) : "crecer audiencia y conseguir clientes"}
+PERFIL:
+- Nombre: ${a.name}
+- Nicho: ${a.niche}
+- Meta: ${a.goal_90}
+- Horas disponibles/día: ${a.available_hours}
+- Estrategia: ${strategy ? strategy.substring(0, 600) : "crecer audiencia y conseguir clientes"}
 
-Crea un horario de 7 días optimizado para máximo progreso hacia su meta. Cada tarea debe servir directamente a su estrategia.
+REGLAS CRÍTICAS — CADA TAREA DEBE SEGUIR ESTAS O ES INCORRECTA:
+1. NUNCA digas "investiga contenido trending", "busca inspiración", "navega redes sociales" — TÚ das la idea directamente en la tarea.
+2. NUNCA digas "planifica tu contenido" — da el plan REAL con temas y hooks específicos.
+3. NUNCA digas "interactúa con tu audiencia" — di exactamente CON QUIÉN interactuar y QUÉ escribir.
+4. Las tareas de contenido deben incluir el tema EXACTO, ángulo y hook. MAL: "Graba un video sobre tu nicho." BIEN: "Graba Reel de 60 seg: '3 errores que comete la gente en ${a.niche}' — Hook: Deja de hacer esto si quieres [resultado]. Muestra primero el error, luego la solución."
+5. Las tareas de outreach deben decir exactamente A QUIÉN escribir y QUÉ mensaje enviar. MAL: "Haz outreach." BIEN: "Escribe a 5 creadores de ${a.niche} con 2k-15k seguidores. Mensaje: Hola [nombre], tu post sobre [tema] estuvo genial. Hago contenido sobre [tu ángulo]. ¿Te interesa hacer una collab?"
+6. Las tareas de aprendizaje deben nombrar la habilidad o técnica ESPECÍFICA. MAL: "Aprende sobre marketing." BIEN: "Estudia fórmulas de hooks: mira los 3 videos más virales de tu nicho, anota los primeros 3 segundos de cada uno y copia la estructura para tu próximo post."
+7. Cada título de tarea es acción-primero y ultra-específico. Dice exactamente cuál es el resultado.
 
-Devuelve SOLO JSON válido. Sin markdown. Sin explicaciones. Las claves deben ser exactamente: LUN, MAR, MIÉ, JUE, VIE, SÁB, DOM
+Devuelve SOLO JSON válido. Sin markdown. Sin explicación. Las claves deben ser exactamente: MON, TUE, WED, THU, FRI, SAT, SUN
 
-{"LUN":[{"time":"7:00 AM","title":"nombre específico de tarea","category":"content","duration":"45 min","xp":75,"why":"por qué esta tarea importa estratégicamente","completed":false}],"MAR":[...],"MIÉ":[...],"JUE":[...],"VIE":[...],"SÁB":[...],"DOM":[...]}
+{"MON":[{"time":"7:00 AM","title":"tarea ultra-específica con detalles exactos","category":"content","duration":"45 min","xp":75,"why":"razón exacta por la que esto genera crecimiento","completed":false}],"TUE":[...],"WED":[...],"THU":[...],"FRI":[...],"SAT":[...],"SUN":[...]}
 
 category debe ser uno de: content, videos, networking, exercise, learning, business, running
 xp: 25=fácil(15min), 50=medio(30min), 100=difícil(60min), 150=épico(90min+)
-4-6 tareas por día. Horarios específicos. Las tareas deben ser ESPECÍFICAS para su nicho, no genéricas.
-Cada tarea necesita un campo "why" explicando su propósito estratégico.`,
+4-6 tareas por día con horarios específicos. SUN puede ser más ligero.
+El campo "why" debe explicar el impacto directo en negocio/crecimiento — no solo repetir la tarea.`,
     coach_system: (profile, strategy, stats) => `Eres un coach estratégico élite y analista de mercado con profundo conocimiento de psicología de crecimiento, estrategia de contenido y optimización de conversión.
 
 TU CLIENTE:
@@ -1141,4 +1156,3 @@ export default function MissionControl() {
     </div>
   );
 }
-
